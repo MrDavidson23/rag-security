@@ -1,8 +1,12 @@
 import pathlib
 import chromadb
+from chromadb.utils import embedding_functions
+ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+    model_name="paraphrase-multilingual-MiniLM-L12-v2"
+)
 
 client = chromadb.PersistentClient(path="db")
-col = client.get_or_create_collection("security_docs")
+col = client.get_or_create_collection("security_docs", embedding_function=ef)
 
 def chunk(text, size=800, overlap=150):
     chunks, start = [], 0

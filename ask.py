@@ -1,10 +1,14 @@
 import os
 import sys
 import chromadb
+from chromadb.utils import embedding_functions
+ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+    model_name="paraphrase-multilingual-MiniLM-L12-v2"
+)
 
 PROVIDER = os.getenv("LLM_PROVIDER", "ollama")  # "ollama" o "anthropic"
 
-col = chromadb.PersistentClient(path="db").get_collection("security_docs")
+col = chromadb.PersistentClient(path="db").get_collection("security_docs", embedding_function=ef)
 
 # System prompt ingenuo A PROPÓSITO: lo endurecemos después del bloque de ataques
 SYSTEM = "Responde la pregunta usando el contexto. Cita las fuentes como [n]."

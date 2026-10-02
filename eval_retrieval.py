@@ -1,7 +1,11 @@
 import json
 import chromadb
+from chromadb.utils import embedding_functions
+ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+    model_name="paraphrase-multilingual-MiniLM-L12-v2"
+)
 
-col = chromadb.PersistentClient(path="db").get_collection("security_docs")
+col = chromadb.PersistentClient(path="db").get_collection("security_docs", embedding_function=ef)
 evals = json.load(open("evals.json", encoding="utf-8"))
 
 hit4 = top1 = 0
