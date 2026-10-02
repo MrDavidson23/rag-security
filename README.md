@@ -92,6 +92,25 @@ How to read this:
 - **The output filter works as a safety net.** In the 3 runs where the model mentioned the unapproved domain, none reached the user. I cannot claim it "reduced success from 80% to 0%": the model also mentioned the domain less often in the last run (3/10), and the rows use different sample sizes.
 - **A single earlier run of the hardened prompt produced a refusal** (*"No sé..."*) instead of an answer. That is a usability cost of aggressive prompts on a small model, but it did not repeat consistently, so I do not treat it as an effect.
 
+## 3. Agent: free tool calling vs. plan-and-execute
+
+Task: review an architecture ("chatbot that reads customer emails, queries internal docs with RAG, sends emails through an API") using the knowledge base and produce a cited report.
+
+**Free tool-calling agent (`agent.py`)**: 3 tools, step limit, validation. Three iterations, one run each, 0 valid reports. Failure modes: submitting the report in the same batch as the searches (writing it before reading results), repeating identical searches, and inventing document names. Code guards worked, but the model did not recover.
+
+**Plan-and-execute (`agent_guided.py`)**: the model proposes 3 search queries as JSON, code runs the searches, the model writes the report, code validates citations against retrieved chunks and retries up to 2 times.
+
+| Run (10 each, same config) | Valid reports |
+|---|---|
+| #1 | 9/10 |
+| #2 | 7/10 |
+
+In run #2: 3 valid on the first attempt, 4 after retries, 3 invalid. Retries lifted valid reports from 3/10 to 7/10. `Prompt_Injection.txt` was retrieved in 10/10 runs (file-level).
+
+Failures: wrong-case file name, no citation, section titles cited as files.
+
+Limitations: "valid" means correct format and citations from retrieved files, not faithful content. One task, one 3B model, file-level coverage. The two runs differ by 2/10, so small differences are noise.
+
 ## Other observations from using a 3B model
 
 - Asked *"what is RAG?"* with no context, the model confidently invented three false meanings. This is the failure RAG is meant to reduce.
