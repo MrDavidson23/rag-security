@@ -1,0 +1,16 @@
+[
+  {"q": "¿Qué es prompt injection?", "expected_source": "Prompt_Injection.txt"},
+  {"q": "What is a direct prompt injection?", "expected_source": "Prompt_Injection.txt"},
+  {"q": "¿Cómo se mitiga la inyección de prompts?", "expected_source": "Prompt_Injection.txt"},
+  {"q": "¿Qué es un ataque indirecto mediante contenido externo?", "expected_source": "Prompt_Injection.txt"},
+  {"q": "¿Qué diferencia hay entre jailbreaking y prompt injection?", "expected_source": "Prompt_Injection.txt"},
+  {"q": "¿Qué es la divulgación de información sensible?", "expected_source": "Sensitive_Information_Disclosure.txt"},
+  {"q": "How can an LLM leak private user data?", "expected_source": "Sensitive_Information_Disclosure.txt"},
+  {"q": "¿Cómo evito que el modelo revele datos personales?", "expected_source": "Sensitive_Information_Disclosure.txt"},
+  {"q": "¿Qué es sanitización de datos y por qué importa?", "expected_source": "Sensitive_Information_Disclosure.txt"},
+  {"q": "¿Qué es el NIST AI RMF?", "expected_source": "AI_RMF.txt"},
+  {"q": "What are the core functions of the AI Risk Management Framework?", "expected_source": "AI_RMF.txt"},
+  {"q": "¿Qué significa gobernar (govern) el riesgo de IA?", "expected_source": "AI_RMF.txt"},
+  {"q": "¿Cómo se mide el riesgo en un sistema de IA?", "expected_source": "AI_RMF.txt"},
+  {"q": "¿Qué riesgos de privacidad tiene un sistema de IA?", "expected_source": "AI_RMF.txt"}
+]
