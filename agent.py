@@ -87,7 +87,8 @@ def run(task: str, verbose: bool = True):
         {"role": "user", "content": task},
     ]
     for step in range(1, MAX_STEPS + 1):
-        msg = ollama.chat(model=MODEL, messages=messages, tools=TOOLS).message
+        msg = ollama.chat(model=MODEL, messages=messages, tools=TOOLS,
+                  options={"num_ctx": 8192}).message
         messages.append(msg)
 
         if not msg.tool_calls:
